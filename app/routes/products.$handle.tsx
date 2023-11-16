@@ -176,7 +176,6 @@ function ProductImage({ image }: { image: ProductVariantFragment['image'] }) {
     <div className="product-image" >
       <Image
         alt={image.altText || 'Product Image'}
-        aspectRatio="1/1"
         data={image}
         key={image.id}
         // data={image.node}
@@ -231,16 +230,6 @@ function ProductMain({
         </Await>
       </Suspense>
       <br />
-      {/* <SizeSelector
-        product={product}
-      /> */}
-      {/* <br />
-      <p>
-        <strong>Description</strong>
-      </p>
-      <br />
-      <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
-      <br /> */}
       <div className="free-shipping-description">
         <img src="https://cdn.shopify.com/s/files/1/2185/2813/files/truck_cart.png?v=1663703912" width="22" alt="" />
         <span style={{ marginLeft: "10px" }}>Free Shipping and Easy Returns.</span>
@@ -330,7 +319,6 @@ function ProductForm({
 }
 
 function SizeSelector({ option }) {
-  // console.log(sizeData);
   return (
     //   <div className='size-elements'>
     //     {sizeData[0]?.values?.map((item) => {
@@ -343,7 +331,7 @@ function SizeSelector({ option }) {
       {option.name === "Size" ?
         <div className='size-elements'>
           {option.values.map(({ value, isAvailable, isActive, to }) => {
-            return <Link style={{ textDecoration: "none" }} to={to}><button className='size-button'>{value}</button></Link>
+            return <Link style={{ textDecoration: "none", backgroundColor: isActive ? 'black' : '' }} to={to}><button style={{ color: isActive ? 'white' : '' }} className='size-button'>{value}</button></Link>
           })}
         </div>
         : null}
@@ -368,12 +356,14 @@ function ProductOptions({ option }: { option: VariantOption }) {
                   replace
                   to={to}
                   style={{
-                    border: isActive ? '1px solid black' : '1px solid transparent',
+                    border: '1px solid black',
                     opacity: isAvailable ? 1 : 0.3,
                     backgroundColor: value,
                     width: '20px',
                     borderRadius: '50%',
-                    height: '28px'
+                    height: '28px',
+                    outline: isActive ? 'black solid 2px' : '',
+                    outlineOffset: isActive ? '5px' : ''
                   }}
                 >
                   {/* {value} */}
